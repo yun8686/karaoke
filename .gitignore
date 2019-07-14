@@ -1,0 +1,12 @@
+# config
+config/*.json
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Mac OSX
+.DS_Store
