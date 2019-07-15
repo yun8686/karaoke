@@ -3,7 +3,7 @@
     <v-flex xs12 sm12 md12>
       <v-container>
         <h1>カラオケ館 フリータイム </h1>
-        <v-text-field key="name" v-model="name" label="店舗名" v-on:change="search"></v-text-field>
+        <v-text-field key="name" v-model="name" label="店舗名"></v-text-field>
         <v-menu
           :close-on-content-click="true"
           :nudge-right="40"
@@ -21,7 +21,7 @@
               v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" @input="menu2 = false" v-on:change="search"></v-date-picker>
+          <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
         </v-menu>
         <v-layout row wrap>
           <v-flex xs4 sm4 md4>
@@ -59,11 +59,11 @@
         >
           <v-list-tile-content>
             <v-list-tile-title>{{ dataset.name }} ({{dataset.start}}:00 ~ {{dataset.end}}:00)</v-list-tile-title>
-            <v-list-tile-sub-title>会員: 500円　一般: 500円</v-list-tile-sub-title>
-            <v-list-tile-sub-title>学生会員: 500円　学生一般: 500円</v-list-tile-sub-title>
-            <v-list-tile-sub-title style="color:red" v-if="dataset.drink==1">フリードリンク</v-list-tile-sub-title>
-            <v-list-tile-sub-title v-else-if="dataset.drink==0">１ドリンク制</v-list-tile-sub-title>
-            <v-list-tile-sub-title v-else>ドリンク注文不要</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{dataset.price}}円 ( 会員: {{dataset.member}}円　一般: {{dataset.visitor}}円</v-list-tile-sub-title>
+            <v-list-tile-sub-title>学生会員: {{dataset.studentmember}}円　学生一般: {{dataset.studentvisitor}}円 )</v-list-tile-sub-title>
+            <v-list-tile-sub-title style="color:red" v-if="dataset.drink==1">フリードリンク({{dataset.remarks}})</v-list-tile-sub-title>
+            <v-list-tile-sub-title v-else-if="dataset.drink==0">１ドリンク制({{dataset.remarks}})</v-list-tile-sub-title>
+            <v-list-tile-sub-title v-else>ドリンク注文不要({{dataset.remarks}})</v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>
             <v-btn icon>
@@ -95,14 +95,17 @@ export default {
     date: null,
     student: false,
     member: true,
-    attributes: "aaa",
-    headers: header,
-    datasets: [],
     times: ["daytime", "nighttime"],
     freedrink: false,
+    attributes: "",
+    datasets: [],
   }),
   mounted: function(){
     tokyo_price.forEach(w=>{
+      // 昼の祝前日は削除する
+      if(w.start<16 && w.day.indexOf(7) >= 0){
+        w.day = w.day.filter(v=>v!=7);
+      }
       Object.assign(w, tokyo.find(v=>v.id==w.id));
     });
     this.search();
@@ -110,8 +113,12 @@ export default {
   components: {
   },
   watch:{
-    freedrink: function(){this.search()},
+    name: function(){this.search()},
+    date: function(){this.search()},
+    student: function(){this.search()},
+    member: function(){this.search()},
     times: function(){this.search()},
+    freedrink: function(){this.search()},
   },
   methods:{
     search(){
@@ -123,6 +130,8 @@ export default {
       const jday = JapaneseHolidays.getJDay(date);
       const freedrink = this.freedrink;
       const times = this.times; // daytime, nighttime
+      const student = this.student;
+      const member = this.member;
       this.attributes = `
         祝日: ${holiday}
         祝前日: ${tomorrowholiday}
@@ -131,9 +140,20 @@ export default {
         時間: ${times}
       `;
       this.datasets = tokyo_price.filter(v=>{
-        const day = tomorrowholiday?8:(holiday?7:jday);
+        // 名前フィルタ
         if(!nameRegExp.test(v.name)) return false;
+
+        // 曜日フィルタ
+        if(v.start<16){
+          var day = holiday?8:jday;
+          // 昼は祝前日を判定に含めない
+          if(v.day.indexOf(day) == -1) return false;
+        }else{
+          var day = tomorrowholiday?7:(holiday?8:jday);
+          if(v.day.indexOf(day) == -1) return false;
+        }
         if(v.day.indexOf(day)==-1) return false;
+
         if(freedrink && v.drink==0) return false;
         if(times.indexOf('daytime')==-1){
           if(v.start<16) return false;
@@ -141,8 +161,27 @@ export default {
         if(times.indexOf('nighttime')==-1){
           if(v.start>=16) return false;
         }
+
+        // 金額計算
+        if(student){
+          if(member){
+            v.price = Math.min(v.studentmember||100000, v.studentvisitor||100000, v.member||100000, v.visitor||100000);
+          }else{
+            v.price = Math.min(v.studentvisitor||100000, v.visitor||100000);
+          }
+        }else{
+          if(member){
+            v.price = Math.min(v.member||100000, v.visitor||100000);
+          }else{
+            v.price = v.visitor||100000;
+          }
+        }
+        if(v.price == 100000) return false;
+
+        v.remarks = v.day.map(v=>["日", "月", "火", "水", "木", "金", "土", "祝前", "祝"][v]).join(",");
+
         return true;
-      });
+      }).sort((a,b)=>a.price-b.price);
     }
   }
 }
