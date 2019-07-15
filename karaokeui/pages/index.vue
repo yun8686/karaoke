@@ -92,7 +92,7 @@ export default {
   layout: 'no_header',
   data: ()=>({
     name: "",
-    date: null,
+    date: new Date().toISOString().substr(0, 10),
     student: false,
     member: true,
     times: ["daytime", "nighttime"],
