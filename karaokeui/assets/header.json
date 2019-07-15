@@ -1,0 +1,10 @@
+[
+  {"text":"店舗名","align":"left","sortable":false,"value":"name"},
+  {"text":"住所","align":"left","sortable":true,"value":"address"},
+  {"text":"曜日","align":"left","sortable":true,"value":"day"},
+  {"text":"開始・終了時間","align":"left","sortable":true,"value":"start_end"},
+  {"text":"最大時間","align":"left","sortable":true,"value":"max_term"},
+  {"text":"値段","align":"left","sortable":true,"value":"price"},
+  {"text":"単価(1h)","align":"left","sortable":true,"value":"unit_price"},
+  {"text":"ドリンク","align":"left","sortable":true,"value":"drink"}
+]
