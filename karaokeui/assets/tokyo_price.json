@@ -66,7 +66,7 @@
   {"id":3010007,"name":"日本橋店","start":23,"end":29,"drink":0,"studentmember":null,"studentvisitor":null,"member":2480,"visitor":3306,"day":[0,1,2,3,4,6,8]},
   {"id":3010007,"name":"日本橋店","start":24,"end":29,"drink":0,"studentmember":null,"studentvisitor":null,"member":2800,"visitor":3733,"day":[5,7]},
   {"id":3010008,"name":"八重洲店","start":12,"end":19,"drink":0,"studentmember":null,"studentvisitor":null,"member":750,"visitor":1000,"day":[1,2,3,4,5,7]},
-  {"id":3010008,"name":"八重洲店","start":12,"end":19,"drink":0,"studentmember":null,"studentvisitor":null,"member":1050,"visitor":1400,"day":[0,6,7]},
+  {"id":3010008,"name":"八重洲店","start":12,"end":19,"drink":0,"studentmember":null,"studentvisitor":null,"member":1050,"visitor":1400,"day":[0,6,8]},
   {"id":3010008,"name":"八重洲店","start":23,"end":29,"drink":0,"studentmember":null,"studentvisitor":null,"member":2480,"visitor":3306,"day":[0,1,2,3,4,6,8]},
   {"id":3010008,"name":"八重洲店","start":24,"end":29,"drink":0,"studentmember":null,"studentvisitor":null,"member":2800,"visitor":3733,"day":[5,7]},
   {"id":3010004,"name":"秋葉原店","start":23,"end":29,"drink":0,"studentmember":null,"studentvisitor":null,"member":990,"visitor":1320,"day":[0,1,2,3,4,8]},
