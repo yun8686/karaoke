@@ -4,41 +4,7 @@
     "url": "http://karaokekan.jp/shop/tokyo_area0/03240012.html",
     "imageUrl": "http://karaokekan.jp/shop/images/price/pn03240012.jpg",
     "address": "住所：東京都武蔵村山市大南1-131",
-    "name": "武蔵村山店",
-    "table": [
-      {
-        "start": 11, "end": 18,
-        "price": 500,
-        "freedrink": true,
-        "student": true,
-        "member": true,
-        "day":[1,2,3,4,5]
-      },
-      {
-        "start": 11, "end": 18,
-        "price": 700,
-        "freedrink": true,
-        "student": false,
-        "member": true,
-        "day":[1,2,3,4,5]
-      },
-      {
-        "start": 11, "end": 18,
-        "price": 500,
-        "freedrink": true,
-        "student": true,
-        "member": false,
-        "day":[1,2,3,4,5]
-      },
-      {
-        "start": 11, "end": 18,
-        "price": 1000,
-        "freedrink": true,
-        "student": false,
-        "member": false,
-        "day":[1,2,3,4,5]
-      }
-    ]
+    "name": "武蔵村山店"
   },
   {
     "id": "03240011",
