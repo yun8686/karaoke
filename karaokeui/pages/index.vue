@@ -2,7 +2,17 @@
   <v-container pa-0>
     <v-flex xs12 sm12 md12>
       <v-container>
-        <h1>カラオケ館 フリータイム </h1>
+        <v-layout row wrap>
+          <h1>カラオケ館 フリータイム検索(東京都) </h1>
+          <v-flex xs4 sm4 md4>
+          </v-flex>
+          <p class="text-lg-right">最終更新日：2019/7/14</p>
+        </v-layout>
+        <v-layout>
+          <p>当サイトはフリータイム料金を独自に調べ、表示しています。</p>
+          <p>正確な情報は公式サイトをご確認ください。</p>
+        </v-layout>
+
         <v-text-field key="name" v-model="name" label="店舗名"></v-text-field>
         <v-menu
           :close-on-content-click="true"
@@ -30,9 +40,6 @@
           <v-flex xs4 sm4 md4>
             <v-switch v-model="member" label="会員" input-value="true" color="red" value></v-switch>
           </v-flex>
-          <v-flex xs4 sm4 md4>
-           <p>{{this.attributes}}</p>
-         </v-flex>
 
          <v-flex xs5 sm5 md5 style="align-self: center;">
            <v-btn-toggle dark v-model="times" multiple>
