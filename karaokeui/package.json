@@ -16,7 +16,7 @@
     "express": "^4.16.4",
     "firebase": "^6.3.0",
     "japanese-holidays": "^1.0.8",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {
     "stylus": "^0.54.5",
